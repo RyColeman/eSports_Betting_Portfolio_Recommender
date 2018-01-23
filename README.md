@@ -8,6 +8,23 @@ Today eSports is one of the fastest growing industries. As of [early 2017 the in
 The Goal: Building a profitable model.
 - In sports betting the ultimate goal is to beat the odds of a particular betting market. Not only to the odds represent the payout one would receive in the event of a successful match but they also represent the particular betting market's probability prediction of whether a particular team will win a match. With this concept in mind, the market's odds essentially represent the market's own predictive strength. You could look at a market's odds as the probability outcomes of their own classification models. If you look at the market's odds, translate them into probabilities and create classification predictions off these probabilities and compare with the known outcomes of those matches (target variable) you then get the baseline accuracy. If you build a model that has a higher accuracy than this baseline accuracy, then you now have a profitable model. This is the goal.
 
+Odds 101: Decimal Odds:
+![Example of decimal Odds](images/odds_example.png)
+
+Data collection: Web Scraping (2 web sources)
+- History of CS:GO matches from 2012 to present(2018 Jan)
+- Team statistics/ratings from 90days in the past of a match taking place.
+- Market odds of a match durring this particular date.
+
+Feature Engineering: Calculating new predictive variables
+- Team and Opponent Schedule Strength ratios (defined as team_ss and opp_ss in dataframe). Schedule strength ratio says for a given team in a match, what was the total ammount of wins all of their past opponents had / the total amount of games their past opponents played. This ratio was calculated in a past 60 day window.
+- Team and Opponent win ratios. This metric captures a team's win streak in a given time window (60 days). Win ratio = (total past wins in the past 60 days) / (total past games in the past 60 days)
+
+Predictive strength of our features:
+
+Model selection:
+- Boosted Forest.
+
 The User Experience (The data Product):
 - 
 
