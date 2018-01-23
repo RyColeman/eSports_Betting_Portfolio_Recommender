@@ -10,6 +10,12 @@ Today eSports is one of the fastest growing industries. As of [early 2017 the in
 
 ## Odds 101: Decimal Odds:
 ![Example of decimal Odds](images/odds_example.png)
+How to interpret decimal odds:
+- In the above example, team FaZe has 1.32 odds. This means that for every $1 you bet, if you win you will be paid $0.32. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
+
+Tradition odds definition: How it differs from Betting Market Odds
+- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with simple algebra what the probability is from traditional odds. These probabilities will add up to 1.
+- Betting Market Odds are the same as traditional odds with the exception that the betting market will lower slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. So in order to calculate the true probability predictions of a betting market you would then add back this difference. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
 
 ## Data collection: Web Scraping (2 web sources)
 - History of CS:GO matches from 2012 to present(2018 Jan)
