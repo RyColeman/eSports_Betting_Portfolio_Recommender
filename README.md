@@ -38,31 +38,35 @@ Main takeaways:
 
 Model selection: And Why.
 - Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with his predictive power.
--- Boosted forest 101. A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased. In the case of classification, we are labeling a target variable as 1 or 0 (1 being the team will winn, 0 being that the opponent will win). 
-
-## The User Experience (The data Product):
-- 
+-- Boosted forest 101. A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased. In the case of classification, we are labeling a target variable as 1 or 0 (1 being the team will winn, 0 being that the opponent will win).  
 
 ## Testing betting stategies:
 Once you have a model who's accuracy is hopefully above the market's baseline accuracy, then the next question is what is the most profitable betting strategy. Multiple betting strategies were explored:
 
-1. Threshold strategy: In this stragegy the user will place a bet on a team when ever the model predicts the probability of that team winning is above a pre-defined threshold, say 60%.
+1. Threshold strategy:
+In this stragegy the user will place a bet on a team when ever the model predicts the probability of that team winning is above a pre-defined threshold, say 60%.
 
-2. Beating the odds #1: This strategy says, assuming you are above baseline accuracy, you should place a bet on the team where your model's probability of that team winning is higher than the market's probability. What this is essentially saying is that, since your model has a higher accuracy than the market's, the team where your model's probability is higher is the 'under-valued' team. It's undervalued because odds are calculated from these probabilites and represent the pay out. For example, if the market says 'SK Gaming' has a 35% chance of winning but your model says 'SK Gaming' has a 45% of winning, then the payout would be higher than the risk you are taking on placing money that bet. Odds ~= (Probability of winning / Probability of loosing), in this case 35% --> 35/65 or in Decimal form: 1/0.35 = 2.85 meaning you get $1.85 for a $1 put on the bet vs. our model's prediction of 45% --> 45/55 or in Decimal form: 1/0.45 = 2.22 meaning you'd get $1.22 for $1 put on the bet. We're saying the risk is worth $2.22, the market is saying the risk is higher, so the payout is more and we're getting a good deal on that particular bet.
+2. Beating the odds #1:
+This strategy says, assuming you are above baseline accuracy, you should place a bet on the team where your model's probability of that team winning is higher than the market's probability. What this is essentially saying is that, since your model has a higher accuracy than the market's, the team where your model's probability is higher is the 'under-valued' team. It's undervalued because odds are calculated from these probabilites and represent the pay out. For example, if the market says 'SK Gaming' has a 35% chance of winning but your model says 'SK Gaming' has a 45% of winning, then the payout would be higher than the risk you are taking on placing money that bet. Odds ~= (Probability of winning / Probability of loosing), in this case 35% --> 35/65 or in Decimal form: 1/0.35 = 2.85 meaning you get $1.85 for a $1 put on the bet vs. our model's prediction of 45% --> 45/55 or in Decimal form: 1/0.45 = 2.22 meaning you'd get $1.22 for $1 put on the bet. We're saying the risk is worth $2.22, the market is saying the risk is higher, so the payout is more and we're getting a good deal on that particular bet.
 
-3. Beating the odds #2: This strategy says, only place a bet on a team where our model says the team will win (it's probability of winning is above 50% from our model) and where the probability predicted from our model is greater than the market's probability.
+3. Beating the odds #2:
+This strategy says, only place a bet on a team where our model says the team will win (it's probability of winning is above 50% from our model) and where the probability predicted from our model is greater than the market's probability.
 
 4. Beating the odds #3:
+
 
 5. Beating the odds #4:
 This strategy takes allocated a betting budget accross multiple matches and the amount of money on each bet is proportional to the amount at which a team is undervalued (the extent at which our model's probabilities of a team winning is greater than the betting market's probability of that team winning).
 - This was the winning strategy and the one used in this betting recommender algorithm.
 
+## The User Experience (The data Product):
+- This algorithm scraps matches for a given day, then provides a day's betting portfolio of what teams to bet on and how much money to put on each team based on a user's entered budget.
+** URL for web app ***
 
 ## Simulating a production environment:
 - Why? As time goes on, the distribution of data can change. What this means is that if your model is predicting well today, it's very possible (and likely) that the distribution of features it uses to predict could change over time making the predictions of your model less accurate over time. An example could be that a certain team that used to always loose gains star players and starts get a winning streak. Or perhaps the market odds you're model uses as a feature begin to change as the company providing these odds improves their own internal model's accuracy.
 - Every time this betting algorithm is run to predict on more bets, new data is added to each respective MongoDB database where a model can be retrained and then used freshly trained on new bets.
-- 
+
 
 ## Lessons learned:
 
