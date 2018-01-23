@@ -1,6 +1,6 @@
 # eSports_Betting_Portfolio_Recommender
 
-NOTE: THIS PROJECT IS PURELY A CONCEPT.
+### NOTE: THIS PROJECT IS PURELY A CONCEPT.
 
 ## Motivation:
 Today eSports is one of the fastest growing industries. As of [early 2017 the industry was estimated as worth $689M with a compound annual growth rate of 40%](https://newzoo.com/insights/articles/esports-revenues-will-reach-696-million-in-2017/). And with this growth the emergency of eSports betting has been recently expanding eSports too. The goal of this project is to explore the possibility of building a prediction model that would have a better accuracy of predicting match outcomes than the odds of a betting market (beating the odds). With this in mind, I chose to look at predicting CS:GO matches. The bottom line is the eSports betting industry is a healthy growing segment.
