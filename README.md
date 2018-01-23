@@ -3,20 +3,20 @@
 ### NOTE: THIS PROJECT IS PURELY A CONCEPT.
 
 ## Motivation:
-Today eSports is one of the fastest growing industries. As of [early 2017 the industry was estimated as worth $689M with a compound annual growth rate of 40%](https://newzoo.com/insights/articles/esports-revenues-will-reach-696-million-in-2017/). And with this growth the emergency of eSports betting has been recently expanding eSports too. The goal of this project is to explore the possibility of building a prediction model that would have a better accuracy of predicting match outcomes than the odds of a betting market (beating the odds). With this in mind, I chose to look at predicting CS:GO matches. The bottom line is the eSports betting industry is a healthy growing segment.
+Today eSports is one of the fastest growing industries. As of [early 2017 the industry was estimated as worth $689M with a compound annual growth rate of 40%](https://newzoo.com/insights/articles/esports-revenues-will-reach-696-million-in-2017/). And with this growth, eSports betting markets have been emerging and expanding. The goal of this project is to explore the possibility of building a prediction model that would have a better accuracy of predicting match outcomes than the odds of a betting market (beating their odds). With this in mind, I chose to look at predicting CS:GO matches.
 
 ## The Goal: Building a profitable model.
-- In sports betting the ultimate goal is to beat the odds of a particular betting market. Not only to the odds represent the payout one would receive in the event of a successful match but they also represent the particular betting market's probability prediction of whether a particular team will win a match. With this concept in mind, the market's odds essentially represent the market's own predictive strength. You could look at a market's odds as the probability outcomes of their own classification models. If you look at the market's odds, translate them into probabilities and create classification predictions off these probabilities and compare with the known outcomes of those matches (target variable) you then get the baseline accuracy. If you build a model that has a higher accuracy than this baseline accuracy, then you now have a profitable model. This is the goal.
+- In sports betting the ultimate goal is to beat the odds of a particular betting market. Not only do the odds represent the payout one would receive in the event of a successful match but they also represent the particular betting market's probability prediction of whether a particular team will win a match. With this concept in mind, the market's odds essentially represent the market's own predictive strength. You could look at a market's odds as the probability outcomes of their own classification models. If you look at the market's odds, translate them into probabilities and create classification predictions off these probabilities and compare with the known outcomes of those matches (target variable) you then get the baseline accuracy. If you build a model that has a higher accuracy than this baseline accuracy, then you now have a profitable model. This is the goal.
 
 ## Odds 101: Decimal Odds:
 ![Example of decimal Odds](images/odds_example.png)
 How to interpret decimal odds:
 - In the above example, team FaZe has 1.32 odds. This means that for every $1 you bet, if you win you will be paid $0.32. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
 
-Tradition odds definition: How it differs from Betting Market Odds
-- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1.
+### Tradition odds definition: How it differs from Betting Market Odds
+- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1. 
+    NOTE: When dealing with decimal odds, the probability is P = 1/(decimal odds).
 - Betting Market Odds are the same as traditional odds with the exception that the betting market will slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. This is called a betting margin. It is a built in way the betting market protects itself from having to payout higher amounts to winning bets. So in order to calculate our estimate of the true probability predictions of a betting market you would then add back this difference/2 for each team. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
-NOTE: Since we're assuming the difference in 
 
 ## Data collection: Web Scraping (2 web sources)
 - History of CS:GO matches from 2012 to present(2018 Jan)
