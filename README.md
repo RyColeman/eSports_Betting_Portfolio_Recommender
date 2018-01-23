@@ -8,6 +8,9 @@ Today eSports is one of the fastest growing industries. As of [early 2017 the in
 The Goal: Building a profitable model.
 - In sports betting the ultimate goal is to beat the odds of a particular betting market. Not only to the odds represent the payout one would receive in the event of a successful match but they also represent the particular betting market's probability prediction of whether a particular team will win a match. With this concept in mind, the market's odds essentially represent the market's own predictive strength. You could look at a market's odds as the probability outcomes of their own classification models. If you look at the market's odds, translate them into probabilities and create classification predictions off these probabilities and compare with the known outcomes of those matches (target variable) you then get the baseline accuracy. If you build a model that has a higher accuracy than this baseline accuracy, then you now have a profitable model. This is the goal.
 
+The User Experience (The data Product):
+- 
+
 Testing betting stategies:
 - Once you have a model who's accuracy is hopefully above the market's baseline accuracy, then the next question is what is the most profitable betting strategy. Multiple betting strategies were explored:
 1. Threshold strategy: In this stragegy the user will place a bet on a team when ever the model predicts the probability of that team winning is above a pre-defined threshold, say 60%.
@@ -17,5 +20,7 @@ Testing betting stategies:
 3. Beating the odds #2: This strategy says, only place a bet on a team where our model says the team will win (it's probability of winning is above 50% from our model) and where the probability predicted from our model is greater than the market's probability.
 
 4. Beating the odds #3:
+
+5. Beating the odds #4:
 
 
