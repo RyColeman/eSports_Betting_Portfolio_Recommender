@@ -21,7 +21,8 @@ Feature Engineering: Calculating new predictive variables
 - Team and Opponent win ratios. This metric captures a team's win streak in a given time window (60 days). Win ratio = (total past wins in the past 60 days) / (total past games in the past 60 days)
 
 Predictive strength of our features:
-![Feature correlations to the target variable: 'winner'](images/feature_correlation_p1.png) ![key](images/feature_correlation_p2.png)
+![Feature correlations to the target variable: 'winner'](images/feature_correlation_p1.png)
+![full_correlation matrix](images/feature_correlation_full.png)
 
 Model selection:
 - Boosted Forest.
