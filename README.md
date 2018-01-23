@@ -36,9 +36,16 @@ Main takeaways:
 - The most highly correlated features (variables) to correctly predicting the target (winner) are not suprisingly, team_odds and opp_odds. Next biggest correlations are KD_diff_team, KD_diff_opp (difference in Kills/Deaths in a time window) and ranking_opp and ranking_team (This is a proprietary ranking metric that HLTV, a csgo stats website, built to rank teams for a given time frame, in this case the past 90 days).
 - All time/date features are completely uncorrelated with the target winner. Also the ranking_version is either 1 or 2. HLTV updated their rating metric to a second version in early 2016, so this feauture was set to keep track of which ranking version was used durring the time a particular match took place.
 
-Model selection: And Why.
+## Model selection: And Why.
 - Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with his predictive power.
--- Boosted forest 101. A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased. In the case of classification, we are labeling a target variable as 1 or 0 (1 being the team will winn, 0 being that the opponent will win).  
+-- Boosted forest 101. A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased. In the case of classification, we are labeling a target variable as 1 or 0 (1 being the team will winn, 0 being that the opponent will win).
+
+## The Betting Market's Baseline Accuracy:
+-  70% Accuracy is the baseline. This is calculated by saying you're going to be making predicting whether a team in a match wins or looses based solely off of the market's probability of the team winning. In other words, predict which team will win based off of which team has the higher odds of winning (lower decimal odds). Then compare the predictions to the known value of the historical outcomes, target data.
+- If our model has an accuracy that is higher than this baseline, then it is profitable. This is the ultimate goal for this problem.
+
+Conclusion: Our model's accuracy is exactly at the baseline. So unfortunately, this model is not currently profitable.
+Thoughts: If you take a look at the feature correlation matrix, we can see that ever predictive feature of a team winning is also correlated to team_odds and opp_odds. One hypothesis is that this particular betting market must be factoring in all of these other features into their own model to create their probability predictions and ultimately odds in the first place.
 
 ## Testing betting stategies:
 Once you have a model who's accuracy is hopefully above the market's baseline accuracy, then the next question is what is the most profitable betting strategy. Multiple betting strategies were explored:
@@ -53,7 +60,7 @@ This strategy says, assuming you are above baseline accuracy, you should place a
 This strategy says, only place a bet on a team where our model says the team will win (it's probability of winning is above 50% from our model) and where the probability predicted from our model is greater than the market's probability.
 
 4. Beating the odds #3:
-
+This strategy says, if the difference between our model's probability and the market's probability of a team winning is greater than a certain fixed amount, then we will place the bet. The idea here was that if the model's difference in probability from the market's probability of a team winning is very small, then the team isn't very undervalued and we shouldn't be placing a bet. (Strategy # 4 fixes this risk problem).
 
 5. Beating the odds #4:
 This strategy takes allocated a betting budget accross multiple matches and the amount of money on each bet is proportional to the amount at which a team is undervalued (the extent at which our model's probabilities of a team winning is greater than the betting market's probability of that team winning).
@@ -69,6 +76,7 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 
 
 ## Lessons learned:
+- Time becomes very important
 
 ## Next Steps:
 
