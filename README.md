@@ -53,6 +53,7 @@ Our model's accuracy is exactly at the baseline. So unfortunately, this model is
 
 ### Thoughts:
 If you take a look at the feature correlation matrix, we can see that every predictive feature of a team winning is also correlated to team_odds and opp_odds. One hypothesis is that this particular betting market must be factoring in all of these other features into their own model to create their probability predictions and ultimately odds in the first place.
+- In other words, it's quite possible that this feature space isn't including any new information that the betting market doesn't already have to make their predictions.
 
 ## Testing betting stategies:
 Once you have a model who's accuracy is hopefully above the market's baseline accuracy, then the next question is what is the most profitable betting strategy. Multiple betting strategies were explored:
