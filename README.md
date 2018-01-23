@@ -38,6 +38,9 @@ Solution: I used Selenium. Selenium is an automated web browser where you can sc
 
 ## Model selection: And Why.
 - Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with his predictive power.
+- SkLearn's Gradient Boosting Classifier
+- SkLearn's AdaBoost Classifer
+- catboost's Cat Boost Classifier
 ### Boosted forest 101. 
 A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased.
 
@@ -84,6 +87,10 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 - Time becomes very important.
 
 ## Next Steps:
+- Add player level stats
+- Re-structure data into time based model. Experiement with LSTM (Long Short Term Memory) neural net.
+- Record multiple odds markets' odds to take in as additional features
+- Collect fan comments about matches before they occur and perform Natural Language Processing.
 
 ## Tech stack used:
 - Pymongo: a python client to connect to MongoDB database
