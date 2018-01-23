@@ -14,13 +14,16 @@ How to interpret decimal odds:
 - In the above example, team FaZe has 1.32 odds. This means that for every $1 you bet, if you win you will be paid $0.32. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
 
 Tradition odds definition: How it differs from Betting Market Odds
-- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with simple algebra what the probability is from traditional odds. These probabilities will add up to 1.
-- Betting Market Odds are the same as traditional odds with the exception that the betting market will lower slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. So in order to calculate the true probability predictions of a betting market you would then add back this difference. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
+- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1.
+- Betting Market Odds are the same as traditional odds with the exception that the betting market will slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. This is called a betting margin. It is a built in way the betting market protects itself from having to payout higher amounts to winning bets. So in order to calculate our estimate of the true probability predictions of a betting market you would then add back this difference/2 for each team. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
+NOTE: Since we're assuming the difference in 
 
 ## Data collection: Web Scraping (2 web sources)
 - History of CS:GO matches from 2012 to present(2018 Jan)
 - Team statistics/ratings from 90days in the past of a match taking place.
 - Market odds of a match durring this particular date.
+Problem: All of the scaped web sources had data populated from a java script. This makes it more challenging to pull information from a website.
+Solution: I used Selenium. Selenium is an automated web browser where you can scrape whatever text shows up on a webpage since it is rendered within this automated broswer rather than just existing within a pages HTML code.
 
 ## Feature Engineering: Calculating new predictive variables
 - Team and Opponent Schedule Strength ratios (defined as team_ss and opp_ss in dataframe). Schedule strength ratio says for a given team in a match, what was the total ammount of wins all of their past opponents had / the total amount of games their past opponents played. This ratio was calculated in a past 60 day window.
@@ -31,8 +34,7 @@ Tradition odds definition: How it differs from Betting Market Odds
 ![Feature correlations to the target variable: 'winner'](images/feature_correlation_p1.png)
 Main takeaways:
 - The most highly correlated features (variables) to correctly predicting the target (winner) are not suprisingly, team_odds and opp_odds. Next biggest correlations are KD_diff_team, KD_diff_opp (difference in Kills/Deaths in a time window) and ranking_opp and ranking_team (This is a proprietary ranking metric that HLTV, a csgo stats website, built to rank teams for a given time frame, in this case the past 90 days).
-- All time/date features are completely uncorrelated with the target winner. Also the ranking_version is either 1 or 2. HLTV updated their rating metric to a second version in early 2016, so this feauture was set to keep track of which ranking version was used durring the time a particular match took place. 
-
+- All time/date features are completely uncorrelated with the target winner. Also the ranking_version is either 1 or 2. HLTV updated their rating metric to a second version in early 2016, so this feauture was set to keep track of which ranking version was used durring the time a particular match took place.
 
 Model selection: And Why.
 - Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with his predictive power.
@@ -53,5 +55,23 @@ Once you have a model who's accuracy is hopefully above the market's baseline ac
 4. Beating the odds #3:
 
 5. Beating the odds #4:
+This strategy takes allocated a betting budget accross multiple matches and the amount of money on each bet is proportional to the amount at which a team is undervalued (the extent at which our model's probabilities of a team winning is greater than the betting market's probability of that team winning).
+- This was the winning strategy and the one used in this betting recommender algorithm.
 
 
+## Simulating a production environment:
+- Why? As time goes on, the distribution of data can change. What this means is that if your model is predicting well today, it's very possible (and likely) that the distribution of features it uses to predict could change over time making the predictions of your model less accurate over time. An example could be that a certain team that used to always loose gains star players and starts get a winning streak. Or perhaps the market odds you're model uses as a feature begin to change as the company providing these odds improves their own internal model's accuracy.
+- Every time this betting algorithm is run to predict on more bets, new data is added to each respective MongoDB database where a model can be retrained and then used freshly trained on new bets.
+- 
+
+## Lessons learned:
+
+## Next Steps:
+
+## Tech stack used:
+- Pymongo: a python client to connect to MongoDB database
+- Selenium: automated web broswer tool. Used for scraping.
+- Numpy: Python's matrix manipulation library
+- Pandas : Python's answer to R's Dataframe datatype.
+- Seaborn & Matplotlib: Python's popular graphing libraries.
+- catboost: Yandex's opensource library for their state of the art boosted forest models.
