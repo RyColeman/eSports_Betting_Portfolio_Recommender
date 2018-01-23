@@ -45,9 +45,11 @@ A Boosted Forest is an ensemble model of decision trees, meaning it's prediction
 -  70% Accuracy is the baseline. This is calculated by saying you're going to be making predicting whether a team in a match wins or looses based solely off of the market's probability of the team winning. In other words, predict which team will win based off of which team has the higher odds of winning (lower decimal odds). Then compare the predictions to the known value of the historical outcomes, target data.
 - If our model has an accuracy that is higher than this baseline, then it is profitable. This is the ultimate goal for this problem.
 
-### Conclusion: Our model's accuracy is exactly at the baseline. So unfortunately, this model is not currently profitable.
+### Conclusion:
+Our model's accuracy is exactly at the baseline. So unfortunately, this model is not currently profitable.
 
-### Thoughts: If you take a look at the feature correlation matrix, we can see that ever predictive feature of a team winning is also correlated to team_odds and opp_odds. One hypothesis is that this particular betting market must be factoring in all of these other features into their own model to create their probability predictions and ultimately odds in the first place.
+### Thoughts:
+If you take a look at the feature correlation matrix, we can see that ever predictive feature of a team winning is also correlated to team_odds and opp_odds. One hypothesis is that this particular betting market must be factoring in all of these other features into their own model to create their probability predictions and ultimately odds in the first place.
 
 ## Testing betting stategies:
 Once you have a model who's accuracy is hopefully above the market's baseline accuracy, then the next question is what is the most profitable betting strategy. Multiple betting strategies were explored:
@@ -78,7 +80,7 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 
 
 ## Lessons learned:
-- Time becomes very important
+- Time becomes very important.
 
 ## Next Steps:
 
