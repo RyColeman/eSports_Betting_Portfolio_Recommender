@@ -37,10 +37,12 @@ Solution: I used Selenium. Selenium is an automated web browser where you can sc
 - All time/date features are completely uncorrelated with the target winner. Also the ranking_version is either 1 or 2. HLTV updated their rating metric to a second version in early 2016, so this feauture was set to keep track of which ranking version was used durring the time a particular match took place.
 
 ## Model selection: And Why.
-- Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with his predictive power.
+### Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with his predictive power.
 - SkLearn's Gradient Boosting Classifier
 - SkLearn's AdaBoost Classifer
-- catboost's Cat Boost Classifier
+- catboost's Cat Boost Classifier (highest accuracy)
+### Additional Models
+- SkLearn's Multilayer Perceptron Neural Net
 ### Boosted forest 101. 
 A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased.
 
