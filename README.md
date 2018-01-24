@@ -102,3 +102,4 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 - Pandas : Python's answer to R's Dataframe datatype.
 - Seaborn & Matplotlib: Python's popular graphing libraries.
 - catboost: Yandex's opensource library for their state of the art boosted forest models.
+- SkLearn : Python's popular Machine learning model and toolkit library.
