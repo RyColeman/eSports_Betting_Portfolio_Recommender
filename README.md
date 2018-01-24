@@ -27,6 +27,7 @@ In this case the Market says FaZe has a 75% of winning and Mousesports has a 32%
 - Market odds of a match durring this particular date.
 Problem: All of the scaped web sources had data populated from a java script. This makes it more challenging to pull information from a website.
 Solution: I used Selenium. Selenium is an automated web browser where you can scrape whatever text shows up on a webpage since it is rendered within this automated broswer rather than just existing within a pages HTML code.
+### Link to web scraping gist
 
 ## Feature Engineering: Calculating new predictive variables
 - Team and Opponent Schedule Strength ratios (defined as team_ss and opp_ss in dataframe). Schedule strength ratio says for a given team in a match, what was the total ammount of wins all of their past opponents had / the total amount of games their past opponents played. This ratio was calculated in a past 60 day window.
