@@ -33,7 +33,7 @@ Solution: I used Selenium. Selenium is an automated web browser where you can sc
 - Team and Opponent win ratios. This metric captures a team's win streak in a given time window (60 days). Win ratio = (total past wins in the past 60 days) / (total past games in the past 60 days)
 
 ## Predictive strength of our features:
-![full_correlation matrix](images/feature_correlation_full.png)
+![full_correlation matrix](images/feature_correlation_full2.png)
 ![Feature correlations to the target variable: 'winner'](images/feature_correlation_p1.png)
 ### Main takeaways:
 - The most highly correlated features (variables) to correctly predicting the target (winner) are not suprisingly, team_odds and opp_odds. Next biggest correlations are KD_diff_team, KD_diff_opp (difference in Kills/Deaths in a time window) and ranking_opp and ranking_team (This is a proprietary ranking metric that HLTV, a csgo stats website, built to rank teams for a given time frame, in this case the past 90 days).
@@ -86,7 +86,7 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 ## Simulating a production environment:
 - Why? As time goes on, the distribution of data can change. What this means is that if your model is predicting well today, it's very possible (and likely) that the distribution of features it uses to predict could change over time making the predictions of your model less accurate over time. An example could be that a certain team that used to always loose gains star players and starts get a winning streak. Or perhaps the market odds you're model uses as a feature begin to change as the company providing these odds improves their own internal model's accuracy.
 - Every time this betting algorithm is run to predict on more bets, new data is added to each respective MongoDB database where a model can be retrained and then used freshly trained on new bets.
-### Picture for Production Environment flow ***
+![Product Architecture Workflow](images/feature_correlation_full2.png)
 
 
 ## Lessons learned:
