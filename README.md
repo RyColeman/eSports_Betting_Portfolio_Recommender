@@ -91,7 +91,7 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 
 
 ## Conclusion:
-- Time is very important. Team's win steaks rise and fall over time and this information was not captured in this model. to demonstrate, below is an example of a team with a high win rate volitility (win rate = #wins / # games played within a 90day look back window):
+- Time is very important. Team's win steaks rise and fall over time and this information was not captured in this model. To demonstrate, below is an example of a team with a high win rate volitility (win rate = #wins / # games played within a 90day look back window):
 ![Team Bravado's high win rate volitility](images/team_wins_over_time.png)
 
 ## Next Steps:
