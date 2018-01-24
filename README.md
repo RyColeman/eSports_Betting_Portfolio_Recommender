@@ -13,7 +13,7 @@ Today eSports is one of the fastest growing industries. As of [early 2017 the in
 ### How to interpret decimal odds:
 - In the above example, team FaZe has 1.32 odds. This means that for every $1 you bet, if you win you will be paid $0.32. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
 ### Converting decimal odds into percentages:
-#### P = 1 / (Decimal Odds)
+#### Probability = 1 / (Decimal Odds)
 In this case the Market says FaZe has a 75% of winning and Mousesports has a 32% chance of winning. You probably noticed these percents don't add to 100%. The difference in these percentages is called the Betting Margin (See below).
 
 ### Tradition odds definition: How it differs from Betting Market Odds
