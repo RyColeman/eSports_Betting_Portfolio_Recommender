@@ -89,7 +89,7 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 ![Product Architecture Workflow](images/product_architecture.png)
 
 
-## Lessons learned:
+## Conclusion:
 - Time becomes very important.
 
 ## Next Steps:
