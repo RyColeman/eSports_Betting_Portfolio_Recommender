@@ -41,7 +41,7 @@ Solution: I used Selenium. Selenium is an automated web browser where you can sc
 - All time/date features are completely uncorrelated with the target winner. Also the ranking_version is either 1 or 2. HLTV updated their rating metric to a second version in early 2016, so this feauture was set to keep track of which ranking version was used durring the time a particular match took place.
 
 ## Model selection: And Why.
-### Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with his predictive power.
+### Boosted Forest. This model was chosen based on it's history of performing particularly well when all you're concerned with is predictive power.
 - SkLearn's Gradient Boosting Classifier
 - SkLearn's AdaBoost Classifer
 - catboost's Cat Boost Classifier (highest accuracy)
@@ -56,7 +56,7 @@ A Boosted Forest is an ensemble model of decision trees, meaning it's prediction
 
 ### Results:
 - Our model's accuracy is exactly at the baseline. So unfortunately, this model is not currently profitable.
-- However, with odds features completely removed we have a test accuracy of 65%. That is not bad, just 5% below being profitable. So we're on the right track.
+- However, with odds features completely removed we still have a test accuracy of 67.6%. That is not bad, just 2.5% below being profitable. So we're on the right track.
 
 ### Thoughts:
 If you take a look at the feature correlation matrix, we can see that every predictive feature of a team winning is also correlated to team_odds and opp_odds. One hypothesis is that this particular betting market must be factoring in all of these other features into their own model to create their probability predictions and ultimately odds in the first place.
