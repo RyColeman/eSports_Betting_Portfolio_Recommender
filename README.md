@@ -63,7 +63,7 @@ If you take a look at the feature correlation matrix, we can see that every pred
 - In other words, it's quite possible that this feature space isn't including any new information that the betting market doesn't already have to make their predictions.
 
 ## Testing betting stategies:
-Once you have a model who's accuracy is hopefully above the market's baseline accuracy, then the next question is what is the most profitable betting strategy. Multiple betting strategies were explored:
+Once you have a model who's accuracy is hopefully above the market's baseline accuracy, then the next question is what is the most profitable betting strategy. Multiple betting strategies were explored and profit outcomes were confirmed from running simulations on our collected data.
 
 ### 1. Threshold strategy:
 In this stragegy the user will place a bet on a team when ever the model predicts the probability of that team winning is above a pre-defined threshold, say 60%.
@@ -79,7 +79,7 @@ This strategy says, if the difference between our model's probability and the ma
 
 ### 5. Beating the odds #4:
 This strategy takes allocated a betting budget accross multiple matches and the amount of money on each bet is proportional to the amount at which a team is undervalued (the extent at which our model's probabilities of a team winning is greater than the betting market's probability of that team winning).
-- This was the winning strategy and the one used in this betting recommender algorithm.
+- This was the most profitable strategy and the one used in this betting recommender algorithm.
 
 ## The User Experience (The data Product):
 - This algorithm scraps matches for a given day, then provides a day's betting portfolio of what teams to bet on and how much money to put on each team based on a user's entered budget.
@@ -95,12 +95,12 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 - Time is very important. Team's win steaks rise and fall over time and this information was not captured in this model. To demonstrate, below is an example of a team with a high win rate volitility (win rate = #wins / # games played within a 90day look back window):
 ![Team Bravado's high win rate volitility](images/team_wins_over_time.png)
 
-- Collect more non-traditional features. Features (information) that the betting market's are most likely not taking into account.
+- Collect more non-traditional features. Features (information) that the betting market's are most likely not taking into account when making their own prediction models.
 
 ## Next Steps:
 - Add player level stats
 - Re-structure data into time based model. Experiement with LSTM (Long Short Term Memory) neural net.
-- Record multiple odds markets' odds to take in as additional features
+- Record multiple odds markets' odds to capture any additional information other betting markets are looking at.
 - Collect fan comments about matches before they occur and perform Natural Language Processing.
 
 ## Tech stack used:
