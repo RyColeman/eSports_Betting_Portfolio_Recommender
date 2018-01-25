@@ -94,6 +94,8 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 - Time is very important. Team's win steaks rise and fall over time and this information was not captured in this model. To demonstrate, below is an example of a team with a high win rate volitility (win rate = #wins / # games played within a 90day look back window):
 ![Team Bravado's high win rate volitility](images/team_wins_over_time.png)
 
+- Collect more non-traditional features. Features (information) that the betting market's are most likely not taking into account.
+
 ## Next Steps:
 - Add player level stats
 - Re-structure data into time based model. Experiement with LSTM (Long Short Term Memory) neural net.
