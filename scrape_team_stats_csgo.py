@@ -91,7 +91,7 @@ if __name__ == '__main__':
     ua = UserAgent()
     n = 90
 
-    df = get_df_v2()
+    df = get_df()
     dates_df = df['date'].unique()
     # dates = set(df['date'].unique())
     # dates = list(dates)

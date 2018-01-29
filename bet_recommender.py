@@ -84,6 +84,9 @@ def get_recommendations(team, opponent, probs, market_probs, threshold):
 def scrape_yesterday_match_history(match_history_coll, yesterday_date):
     ua = UserAgent()
     driver = scrape.init_driver(ua, implicit_wait=20)
+    ## Accounting for timezone difference in scraping source
+    # timezone_change = pd.Timedelta('8h')
+    # yesterday_datetime = yesterday_datetime + timezone_change
     year = yesterday_date.year
     month = yesterday_date.month
     day = yesterday_date.day
@@ -97,9 +100,9 @@ def scrape_yesterday_match_history(match_history_coll, yesterday_date):
     driver.get(url)
     scrape.wait()
 
-    match_table_xpath = '''/html/body/div[2]/div/div[2]/div[1]/div/div[3]/div[1]/div[1]'''
+    match_table_css = 'div.results-holder:nth-child(4) > div:nth-child(1) > div:nth-child(1)'
 
-    day_match_result = driver.find_element_by_xpath(match_table_xpath).text.split('\n')
+    day_match_result = driver.find_element_by_css_selector(match_table_css).text.split('\n')
     scrape.wait()
 
     date_line = day_match_result[0].split()
@@ -157,6 +160,7 @@ class BetAssistant():
         ''' scrape OA for new today's matches. (after 5pm MTN, gets tomorrow's matches). Inserts new odds data into local database. Generates probabilities for all these matches.'''
 
         yesterday_date = self.today_date - pd.Timedelta('1d')
+        yesterday_datetime = pd.Timestamp.today() - pd.Timedelta('1d')
 
         # Checking if matches_coll already contains match history data from yesterday_date:
         r = []
@@ -181,7 +185,7 @@ class BetAssistant():
             raw_odds = scrape_todays_odds(today_date_adj, self._unformatted_odds_coll)
 
         # Time to format the raw_odds into CSGO matches with odds (the year and last_mon aren't neccessary for this script, so we won't be using these variables):
-        matches, year, last_mon = fod.process_raw_odds(self._formatted_odds_coll, raw_odds, self.today_date)
+        matches, year, last_mon = fod.process_raw_odds(self._formatted_odds_coll, raw_odds, today_date_adj)
 
         add_all = False
         if self.eligible_matches == []:
@@ -195,8 +199,12 @@ class BetAssistant():
             team_odds = match['team_odds']
             opp_odds = match['opp_odds']
             datetime = match['datetime']
+            h = datetime.hour
+            m = datetime.minute
+            if len(str(m)) == 1:
+                m = '0{}'.format(m)
             date = '{0}-{1}-{2}'.format(datetime.year, datetime.month, datetime.day)
-            time = '{0}:{1}'.format(datetime.hour, datetime.minute)
+            time = '{0}:{1}'.format(h, m)
             match_type = match['bet_type']
             details = match['details']
 
@@ -205,7 +213,7 @@ class BetAssistant():
                 probs, advice = pt.get_predictions_v2(self._model, self._df, date, time, team, opponent, team_odds, opp_odds, self._ranking_coll, match_type, print_out=False)
 
                 should_I_bet = advice[0]
-                if should_I_bet:
+                if should_I_bet and pd.Timestamp.today() < datetime:
                     bet_match = {'team' : team, 'opponent' : opponent, 'team_prob' : probs[1], 'opp_prob' : probs[0], 'time' : time, 'date': date, 'team_odds' : team_odds, 'opp_odds' : opp_odds}
 
                     # first check if match is already in this list of eligible matches if not, add the match:
@@ -235,6 +243,9 @@ class BetAssistant():
 
         for date, time, team, opponent, team_odds, opp_odds, match_type in games:
 
+            team = team.lower().replace(' ', '')
+            opponent = opponent.lower().replace(' ', '')
+
             probs, advice = pt.get_predictions_v2(self._model, self._df, date, time, team, opponent, team_odds, opp_odds, self._ranking_coll, match_type, print_out=False)
 
             should_I_bet = advice[0]
@@ -256,8 +267,9 @@ class BetAssistant():
 
     def get_today_portfolio(self, odds_list, today_budget, market_name, print_out=True):
         ''' Function takes the odds of the given betting market in odds_list and today_budget to generate a betting portfolio that tells user which teams to put money on in each match and how much money to bet on each team.
-        odds_list --> [[date='YYYY-MM-DD', 'team', 'opponent', team_odds, opp_odds, market_name]]
+        odds_list --> [[date='YYYY-MM-DD', 'team', 'opponent', team_odds, opp_odds]]
         today_budget --> float
+        market_name --> string
 
         Note: Only games that were inserted manually and scrapped will be included. Furthermore, if any games include teams that were not included in model's training data or include teams were there were no stats data found, then these matches will not be included in today's portfolio.
         '''
@@ -268,6 +280,10 @@ class BetAssistant():
         else:
             bm_sum = 0
             for date, team, opponent, market_team_odds, market_opp_odds in odds_list:
+
+                team = team.lower().replace(' ', '')
+                opponent = opponent.lower().replace(' ', '')
+
                 for match in self.eligible_matches:
                     add_match = False
                     if team == match['team'] and opponent == match['opponent']:

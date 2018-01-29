@@ -6,15 +6,14 @@ from collections import defaultdict
 import pdb
 
 def mtn_time_zone(date, time):
-    # date = match['date']
-    # time = match['time']
     hours, mins = time.split(':')
     delta = pd.Timedelta('{}h, {}m'.format(hours, mins))
     time_zone_change = pd.Timedelta('7h')
-    date = date + delta - time_zone_change
-    # match['date'] = date
+    datetime = date + delta - time_zone_change
 
-    return date
+    date = pd.to_datetime('{0}-{1}-{2}'.format(datetime.year, datetime.month, datetime.day))
+
+    return datetime, date
 
 def process_raw_odds(formatted_odds_coll, raw_odds, today_date, year=None, last_mon=None, page='new_data'):
     matches = []
@@ -122,7 +121,7 @@ def process_raw_odds(formatted_odds_coll, raw_odds, today_date, year=None, last_
                     date = pd.to_datetime(str(year)+'-'+mon+'-'+day)
                     last_mon = mon
 
-                    date = mtn_time_zone(date, time)
+                    datetime, date = mtn_time_zone(date, time)
 
                 # Getting rid of () and spaces to make sure all teams are the same format as other data sources
                 team1 = team1.strip(')').strip(')').strip('(').strip(')').strip('(').strip(')').strip('(').strip(')').strip('(').strip(')').strip('(').replace(' ', '').replace('csgo', '').lower()
@@ -137,7 +136,7 @@ def process_raw_odds(formatted_odds_coll, raw_odds, today_date, year=None, last_
                     # hours, mins = time.split(':')
                     # delta = pd.Timedelta('{}h,{}m'.format(hours, mins))
                     # datetime = today_date + delta - pd.Timedelta('8h')
-                    date = mtn_time_zone(today_date, time)
+                    datetime, date = mtn_time_zone(today_date, time)
 
                 # formatted_odds_coll.update_one({'date' : date, 'team1' : team1, 'team2' : team2, 'time' : time, 'event': event, 'details' : details, 'map': match_map, 'page' : page}, {'$set' : {'odds1' : odds1, 'odds2' : odds2, 'draw_odds' : draw_odds, 'ah1' : ah1, 'ah2' : ah2, 'total1' : total1, 'total2' : total2}}, upsert=True)
 
@@ -148,9 +147,10 @@ def process_raw_odds(formatted_odds_coll, raw_odds, today_date, year=None, last_
                     # hours, mins = time.split(':')
                     # delta = pd.Timedelta('{}h,{}m'.format(hours, mins))
                     # adj_datetime = date + delta - pd.Timedelta('8h')
-                    adj_datetime = date - pd.Timedelta('1h')
+                    # adj_datetime = date - pd.Timedelta('1h')
 
-                    match = {'team' : team1, 'opponent' : team2, 'team_odds' : odds1, 'opp_odds' : odds2, 'datetime' : adj_datetime, 'bet_type' : match_map, 'details' : details}
+
+                    match = {'team' : team1, 'opponent' : team2, 'team_odds' : odds1, 'opp_odds' : odds2, 'datetime' : datetime, 'bet_type' : match_map, 'details' : details}
 
                     matches.append(match)
 

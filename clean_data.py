@@ -5,6 +5,26 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import Imputer
 from pymongo import MongoClient
+import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter, MaxNLocator
+
+def get_stable_teams(df):
+    unique_teams = df['team'].unique()
+    team_wr_ind = list(df.columns).index('team_win_ratio')
+    team_var_list = []
+    for team in unique_teams:
+        X = df[df['team'] == team].values
+        total_games = len(X)
+        win_ratios = X[:, team_wr_ind]
+        team_wr_var = win_ratios.var()
+        team_var_list.append((team, team_wr_var, total_games))
+
+    team_var_list = [(team, var, tg) for team, var, tg in team_var_list if var !=0]
+    team_var_list = sorted(team_var_list, key= lambda tup : tup[1])
+
+
+    return team_var_list
 
 def clean_match_type(mt):
     if mt == 'bo3' or mt == 'bo5' or mt == 'bo2':
@@ -23,7 +43,7 @@ def winner(team_score, opp_score):
 def make_dummies(df, col_name):
     dummies = pd.get_dummies(df[col_name])
     df = pd.concat([df, dummies], axis=1)
-    # df.drop(col_name, axis=1, inplace=True)
+    df.drop(col_name, axis=1, inplace=True)
     return df
 
 def get_doc_from_coll(date, coll):
@@ -196,7 +216,7 @@ def get_df():
     # Making sure match type is '', or bo2/3/5:
     df['match_type'] = df['match_type'].apply(lambda mt : clean_match_type(mt))
 
-    df = add_schedule_strength(df, 60, 60)
+    df = add_schedule_strength(df, 90, 90)
 
     # getting rid of edge case team names that throw errors in this code pipeline:
     df = df[(df['team'] != 'g') & (df['opponent'] != 'g')]
@@ -351,6 +371,11 @@ def grab_final_df(ranking_coll_name, max_games=100):
     print('end add_ranking_features')
     print('\n')
 
+    # Experimenting with taking out teams with high winning rate volitility to see if this helps prediction strength:
+    # team_var_list = get_stable_teams(df)
+    # stable_teams = [team for team, var in team_var_list[:150]]
+    # df = df[(df['team'].isin(stable_teams)) & (df['opponent'].isin(stable_teams))]
+
     df.drop(['opp_score', 'team_score'], axis=1, inplace=True)
     df.dropna(axis=0, how='any', inplace=True)
 
@@ -365,3 +390,50 @@ def grab_final_df(ranking_coll_name, max_games=100):
     # df['opp_odds'] = imputed_odds[:, 1]
 
     return df
+
+if __name__ == '__main__':
+    df = get_df()
+    team = 'bravado'
+    win_ratios = df[df['team'] == team]['team_win_ratio'].values[::-1]
+    dates_x = df[df['team'] == team]['date'].values[::-1]
+    dates_x = [pd.to_datetime(d).year for d in dates_x]
+    xs = range(len(dates_x))
+
+    def format_fn(tick_val, tick_pos):
+        if int(tick_val) in xs:
+
+            return dates_x[int(tick_val)]
+        else:
+            return ''
+
+    sns.set_style("darkgrid")
+    sns.set_context("talk")
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    ax.xaxis.set_major_formatter(FuncFormatter(format_fn))
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_xticks(xs[::-20])
+    ax.plot(xs, win_ratios, linestyle='-', marker='D', markersize=6, markerfacecolor='g')
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Win Rate (past 90day window)')
+    ax.set_title("Team Bravado's Win Rate over time")
+    plt.show()
+
+
+
+    df = grab_final_df('team_stats_90d_ago', max_games=1)
+    winner = df.pop('winner').values
+    df['winner'] = winner
+
+    sns.set(style="white")
+    corr = df.corr()
+    mask = np.zeros_like(corr, dtype=np.bool)
+    mask[np.triu_indices_from(mask)] = True
+
+    f, ax = plt.subplots(figsize=(10, 10))
+    ax.figure.subplots_adjust(bottom = 0.2)
+    cmap = sns.diverging_palette(220, 10, as_cmap=True)
+    sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0,
+            square=True, linewidths=.5, annot=True, annot_kws={'size': 6}, cbar_kws={"shrink": .5})
+    plt.show()
