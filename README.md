@@ -17,9 +17,8 @@ Today eSports is one of the fastest growing industries. eSports is professional 
 In this case the Market says FaZe has a 74.6% of winning and Mousesports has a 32% chance of winning. You probably noticed these percents don't add to 100%. The difference in these percentages is called the Betting Margin (See below).
 
 ### Tradition odds definition: How it differs from Betting Market Odds
-- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1. 
-    NOTE: When dealing with decimal odds, the probability is P = 1/(decimal odds).
-- Betting Market Odds are the same as traditional odds with the exception that the betting market will slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. This is the Betting Margin. It is a built in way the betting market protects itself from having to payout higher amounts to winning bets. So in order to calculate our estimate of the true probability predictions of a betting market you would then add back this difference/2 for each team. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
+- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1.
+- Betting Market Odds are the same as traditional odds with the exception that the betting market will slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. This is called the Betting Margin. It is a built in way the betting market protects itself from having to payout higher amounts to winning bets. So in order to calculate our estimate of the true probability predictions of a betting market you would then add back this difference/2 for each team. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
 
 ## Data collection: Web Scraping (2 web sources)
 - History of CS:GO matches from 2012 to present(2018 Jan)
@@ -56,7 +55,7 @@ A Boosted Forest is an ensemble model of decision trees, meaning it's prediction
 
 ### Results:
 - Our model's accuracy is exactly at the baseline. So unfortunately, this model is not currently profitable.
-- However, with odds features completely removed we still have a test accuracy of 67.6%. That is not bad, just 2.5% below being profitable. So we're on the right track.
+- However, with odds features completely removed we still have a test accuracy of 67.6%. That is not bad, just 2.4% below being profitable. So we're on the right track.
 
 ### Thoughts:
 If you take a look at the feature correlation matrix, we can see that every predictive feature of a team winning is also correlated to team_odds and opp_odds. One hypothesis is that this particular betting market must be factoring in all of these other features into their own model to create their probability predictions and ultimately odds in the first place.
