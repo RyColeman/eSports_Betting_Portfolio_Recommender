@@ -39,8 +39,6 @@ def init_driver(useragent):
     return driver
 
 def scrape_page(driver, mh_coll, first_page=False):
-    # match_result_css_sel = '.results-all > .results-sublist'
-    # match_result_eles = driver.find_elements_by_css_selector(match_result_css_sel)
 
     table_class_name = 'results-sublist'
     match_result_eles = driver.find_elements_by_class_name(table_class_name)
@@ -77,12 +75,12 @@ def scrape_page(driver, mh_coll, first_page=False):
             mh_coll.update_one({'date' : date, 'team1' : team1, 'team2' : team2, 'team1_score' : team1_score, 'team2_score' : team2_score, 'event' : event, 'match_type' : match_type}, {'$set' : {'new_entry' : 'no'}}, upsert=True)
 
     # Check if we're at the last page:
-    # pagination_css = '.pagination-data'
-    # page_range, last_page = driver.find_element_by_css_selector(pagination_css).text.split('of')
-    # wait()
-    # start_range, end_range = page_range.split('-')
-    # end_range = int(end_range)
-    # last_page = int(last_page)
+    pagination_css = '.pagination-data'
+    page_range, last_page = driver.find_element_by_css_selector(pagination_css).text.split('of')
+    wait()
+    start_range, end_range = page_range.split('-')
+    end_range = int(end_range)
+    last_page = int(last_page)
 
     last_page = 'last'
     end_range = 'end'

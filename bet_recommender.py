@@ -117,7 +117,6 @@ def scrape_yesterday_match_history(match_history_coll, yesterday_date):
     driver.get(url)
     scrape.wait()
 
-    # match_table_css = 'div.results-holder:nth-child(4) > div:nth-child(1) > div:nth-child(1)'
     match_table_css = '.results-holder'
 
     match_result = driver.find_element_by_css_selector(match_table_css).text.split('\n')

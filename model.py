@@ -646,76 +646,7 @@ if __name__ == '__main__':
     grid_gbc = get_best_grid_searched_model(p_grid_gcb, GradientBoostingClassifier(), X_train2, X_test2, y_train2, y_test2, df2)
 
     p_grid_mlp = {'hidden_layer_sizes' : [(100, 100), (200,)],
-                'activation' : ['relu', 'tanh', 'logistic'],
+                'activation' : ['identity','relu', 'tanh', 'logistic'],
                 'max_iter' : [200, 300]}
 
     grid_mlp = get_best_grid_searched_model(p_grid_mlp, MLPClassifier(), X_train2, X_test2, y_train2, y_test2, df2)
-
-
-
-
-
-    ########### Grid Searching for optimized parameters ##############
-    # '''
-    #                     iterations=500,
-    #                     learning_rate=0.03,
-    #                     depth=6,
-    #                     l2_leaf_reg=3,
-    #                      rsm=None,
-    #                      loss_function='Logloss',
-    #                      border_count=None,
-    #                      feature_border_type='MinEntropy',
-    #                      fold_permutation_block_size=None,
-    #                      od_pval=None,
-    #                      od_wait=None,
-    #                      od_type=None,
-    #                      nan_mode=None,
-    #                      counter_calc_method=None,
-    #                      leaf_estimation_iterations=None,
-    #                      leaf_estimation_method=None,
-    #                      thread_count=None,
-    #                      random_seed=None,
-    #                      use_best_model=None,
-    #                      verbose=None,
-    #                      logging_level=None,
-    #                      ctr_description=None,
-    #                      ctr_border_count=None,
-    #                      ctr_leaf_count_limit=None,
-    #                      store_all_simple_ctr=None,
-    #                      max_ctr_complexity=None,
-    #                      priors=None,
-    #                      has_time=False,
-    #                      classes_count=None,
-    #                      class_weights=None,
-    #                      one_hot_max_size=None,
-    #                      random_strength=1,
-    #                      name='experiment',
-    #                      ignored_features=None,
-    #                      train_dir=None,
-    #                      custom_loss=None,
-    #                      custom_metric=None,
-    #                      eval_metric=None,
-    #                      bagging_temperature=None,
-    #                      save_snapshot=None,
-    #                      snapshot_file=None,
-    #                      fold_len_multiplier=None,
-    #                      used_ram_limit=None,
-    #                      feature_priors=None,
-    #                      allow_writing_files=None,
-    #                      approx_on_full_history=None,
-    #                      task_type=None,
-    #                      device_config=None
-    # '''
-    #
-    # p_grid = {'learning_rate': [0.1],
-    #             'depth' : [2, 6, 8],
-    #             'loss_function' : ['Logloss', 'CrossEntropy']}
-    #
-    # cat_grid_model = GridSearchCV(estimator=CatBoostClassifier, param_grid=p_grid, n_jobs=-1, verbose=1)
-    #
-    # cat_grid_model.fit(X_train, y_train.reshape((y_train.shape[0], 1)))
-    #
-    # best_cat = cat_grid_model.best_estimator_
-    # print('...............................')
-    # print('Best model parameters : \n{}'.format(cat_grid_model.best_params_))
-    # print('Best model score : {}'.format(best_cat.score(X_test, y_test)))

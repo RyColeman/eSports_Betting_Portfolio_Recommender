@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 new_matches = []
 
-# ba = BetAssistant()
-# ba.update_data()
+ba = BetAssistant()
+ba.update_data()
 
 @app.route('/')
 def home():
@@ -174,8 +174,6 @@ def portfolio():
                 else:
                     day = 'tomorrow'
                 message += 'Put ${0:0.2f} on {1} in the {2} vs {3} match at {4} MTN {5} </br></br>'.format(match['bet_amount'], match['bet_team'], match['match']['team'], match['match']['opponent'], match['match']['time'], day)
-    # else:
-    #     massage = 'There are no matches to bet on.</br>Check back later after 5pm MTN today.'
 
     message = Markup(message)
 
