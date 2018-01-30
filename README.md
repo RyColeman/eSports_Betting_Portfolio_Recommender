@@ -9,7 +9,7 @@ Today eSports is one of the fastest growing industries. eSports is professional 
 - In sports betting the ultimate goal is to beat the odds of a particular betting market. Not only do the odds represent the payout one would receive in the event of a successful match but they also represent the particular betting market's probability prediction of whether a particular team will win a match. With this concept in mind, the market's odds essentially represent the market's own predictive strength. You could look at a market's odds as the probability outcomes of their own classification models. If you look at the market's odds, translate them into probabilities and create classification predictions off these probabilities and compare with the known outcomes of those matches (target variable) you then get the baseline accuracy. If you build a model that has a higher accuracy than this baseline accuracy, then you now have a profitable model. This is the goal.
 
 ## Odds 101: Decimal Odds:
-![Example of decimal Odds](images/odds_example.png)
+![Example of decimal Odds](images/odds_example3.png)
 ### How to interpret decimal odds:
 - In the above example, team FaZe has 1.32 odds. This means that for every $1 you bet, if you win you will be paid $0.32. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
 ### Converting decimal odds into percentages:
