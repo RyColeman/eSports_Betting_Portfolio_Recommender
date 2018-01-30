@@ -9,12 +9,12 @@ Today eSports is one of the fastest growing industries. eSports is professional 
 - In sports betting the ultimate goal is to beat the odds of a particular betting market. Not only do the odds represent the payout one would receive in the event of a successful match but they also represent the particular betting market's probability prediction of whether a particular team will win a match. With this concept in mind, the market's odds essentially represent the market's own predictive strength. You could look at a market's odds as the probability outcomes of their own classification models. If you look at the market's odds, translate them into probabilities and create classification predictions off these probabilities and compare with the known outcomes of those matches (target variable) you then get the baseline accuracy. If you build a model that has a higher accuracy than this baseline accuracy, then you now have a profitable model. This is the goal.
 
 ## Odds 101: Decimal Odds:
-![Example of decimal Odds](images/odds_example3.png)
+![Example of decimal Odds](images/odds_example4.png)
 ### How to interpret decimal odds:
-- In the above example, team FaZe has 1.32 odds. This means that for every $1 you bet, if you win you will be paid $0.32. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
+- In the above example, team FaZe has 1.34 odds. This means that for every $1 you bet, if you win you will be paid $1.34. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
 ### Converting decimal odds into percentages:
-#### Probability = 1 / (Decimal Odds)
-In this case the Market says FaZe has a 75% of winning and Mousesports has a 32% chance of winning. You probably noticed these percents don't add to 100%. The difference in these percentages is called the Betting Margin (See below).
+![odds to probability](images/odds_to_prob.png)
+In this case the Market says FaZe has a 74.6% of winning and Mousesports has a 32% chance of winning. You probably noticed these percents don't add to 100%. The difference in these percentages is called the Betting Margin (See below).
 
 ### Tradition odds definition: How it differs from Betting Market Odds
 - Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1. 
