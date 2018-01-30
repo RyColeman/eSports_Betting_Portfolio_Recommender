@@ -16,6 +16,23 @@ import scrape_odds_csgo as scrape
 import format_odds_data as fod
 import predict as pt
 
+def get_date_name(date):
+    day = date.day
+    month_name_dict = {1:'January', 2: 'February', 3: 'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'}
+    month_name = month_name_dict[date.month]
+    if day == 1:
+        day_name = '1st'
+    elif day == 2:
+        day_name = '2nd'
+    elif day == 3:
+        day_name = '3rd'
+    else:
+        day_name = '{}th'.format(day)
+
+    date_name = 'Results for {0} {1} {2}'.format(month_name, day_name, date.year)
+    return date_name
+
+
 def scrape_todays_odds(today_date, odds_coll):
     ua = UserAgent()
 
@@ -100,10 +117,20 @@ def scrape_yesterday_match_history(match_history_coll, yesterday_date):
     driver.get(url)
     scrape.wait()
 
-    match_table_css = 'div.results-holder:nth-child(4) > div:nth-child(1) > div:nth-child(1)'
+    # match_table_css = 'div.results-holder:nth-child(4) > div:nth-child(1) > div:nth-child(1)'
+    match_table_css = '.results-holder'
 
-    day_match_result = driver.find_element_by_css_selector(match_table_css).text.split('\n')
+    match_result = driver.find_element_by_css_selector(match_table_css).text.split('\n')
+
+    date_name = get_date_name(yesterday_date)
+    prev_date_name = get_date_name(yesterday_date - pd.Timedelta('1d'))
+
+    match_result = driver.find_element_by_css_selector(match_table_css).text.split('\n')
     scrape.wait()
+    ind_start = match_result.index(date_name)
+    ind_end = match_result.index(prev_date_name)
+
+    day_match_result = match_result[ind_start:ind_end]
 
     date_line = day_match_result[0].split()
     month = date_line[2]

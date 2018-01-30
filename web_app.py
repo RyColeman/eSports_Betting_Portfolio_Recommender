@@ -9,16 +9,18 @@ app = Flask(__name__)
 
 new_matches = []
 
-ba = BetAssistant()
-ba.update_data()
+# ba = BetAssistant()
+# ba.update_data()
 
 @app.route('/')
 def home():
+    ba = BetAssistant()
     ba.update_data()
     return render_template('index.html')
 
 @app.route('/input_matches')
 def input_matches():
+    ba = BetAssistant()
     ba.update_data()
     match_message = ''
     out_message = ''
@@ -30,7 +32,7 @@ def input_matches():
     today_date = pd.to_datetime('{0}-{1}-{2}'.format(today_datetime.year, today_datetime.month, today_datetime.day))
 
     if ba.eligible_matches == []:
-        close_message = 'Currently there are no matches availble to bet on today. Please check back after 5pm MTN.'
+        close_message = 'Currently there are no matches availble to bet on. Please check back after 5pm MTN today.'
 
     elif len(ba.eligible_matches) > 1:
         form_html = '''
