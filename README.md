@@ -3,23 +3,22 @@
 ### NOTE: THIS PROJECT IS PURELY A CONCEPT.
 
 ## Motivation:
-Today eSports is one of the fastest growing industries. As of [early 2017 the industry was estimated as worth $689M with a compound annual growth rate of 40%](https://newzoo.com/insights/articles/esports-revenues-will-reach-696-million-in-2017/). And with this growth, eSports betting markets have been emerging and expanding. The goal of this project is to explore the possibility of building a prediction model that would have a better accuracy of predicting match outcomes than the odds of a betting market (beating their odds). With this in mind, I chose to look at predicting CS:GO matches.
+Today eSports is one of the fastest growing industries. eSports is professional video game players. As of [early 2017 the industry was estimated as worth $689M with a compound annual growth rate of 40%](https://newzoo.com/insights/articles/esports-revenues-will-reach-696-million-in-2017/). And with this growth, eSports betting markets have been emerging and expanding. The goal of this project is to explore the possibility of building a prediction model that would have a better accuracy of predicting match outcomes than the odds of a betting market (beating their odds). With this in mind, I chose to look at predicting CS:GO matches.
 
 ## The Goal: Building a profitable model.
 - In sports betting the ultimate goal is to beat the odds of a particular betting market. Not only do the odds represent the payout one would receive in the event of a successful match but they also represent the particular betting market's probability prediction of whether a particular team will win a match. With this concept in mind, the market's odds essentially represent the market's own predictive strength. You could look at a market's odds as the probability outcomes of their own classification models. If you look at the market's odds, translate them into probabilities and create classification predictions off these probabilities and compare with the known outcomes of those matches (target variable) you then get the baseline accuracy. If you build a model that has a higher accuracy than this baseline accuracy, then you now have a profitable model. This is the goal.
 
 ## Odds 101: Decimal Odds:
-![Example of decimal Odds](images/odds_example.png)
+![Example of decimal Odds](images/odds_example4.png)
 ### How to interpret decimal odds:
-- In the above example, team FaZe has 1.32 odds. This means that for every $1 you bet, if you win you will be paid $0.32. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
+- In the above example, team FaZe has 1.34 odds. This means that for every $1 you bet, if you win you will be paid $1.34. So the team with the lower decimal odds means that the market is predicting that team has a higher chance of winning, and as such, the risk is smaller and the payout is smaller to reflect this risk. More risk, more reward is the idea here.
 ### Converting decimal odds into percentages:
-#### Probability = 1 / (Decimal Odds)
-In this case the Market says FaZe has a 75% of winning and Mousesports has a 32% chance of winning. You probably noticed these percents don't add to 100%. The difference in these percentages is called the Betting Margin (See below).
+![odds to probability](images/odds_to_prob.png)
+In this case the Market says FaZe has a 74.6% of winning and Mousesports has a 32% chance of winning. You probably noticed these percents don't add to 100%. The difference in these percentages is called the Betting Margin (See below).
 
 ### Tradition odds definition: How it differs from Betting Market Odds
-- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1. 
-    NOTE: When dealing with decimal odds, the probability is P = 1/(decimal odds).
-- Betting Market Odds are the same as traditional odds with the exception that the betting market will slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. This is the Betting Margin. It is a built in way the betting market protects itself from having to payout higher amounts to winning bets. So in order to calculate our estimate of the true probability predictions of a betting market you would then add back this difference/2 for each team. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
+- Traditional Odds = (Probability of event happening) / (Probability of event not happening). You can then workout with algebra what the probability is from traditional odds. These probabilities will add up to 1.
+- Betting Market Odds are the same as traditional odds with the exception that the betting market will slightly raise the probabilities of each team winning, which translates to a lower payout from the odds. This is called the Betting Margin. It is a built in way the betting market protects itself from having to payout higher amounts to winning bets. So in order to calculate our estimate of the true probability predictions of a betting market you would then add back this difference/2 for each team. This difference would be the probabilities of the betting market of each team winning added up and subtracting 1.
 
 ## Data collection: Web Scraping (2 web sources)
 - History of CS:GO matches from 2012 to present(2018 Jan)
@@ -56,7 +55,7 @@ A Boosted Forest is an ensemble model of decision trees, meaning it's prediction
 
 ### Results:
 - Our model's accuracy is exactly at the baseline. So unfortunately, this model is not currently profitable.
-- However, with odds features completely removed we still have a test accuracy of 67.6%. That is not bad, just 2.5% below being profitable. So we're on the right track.
+- However, with odds features completely removed we still have a test accuracy of 67.6%. That is not bad, just 2.4% below being profitable. So we're on the right track.
 
 ### Thoughts:
 If you take a look at the feature correlation matrix, we can see that every predictive feature of a team winning is also correlated to team_odds and opp_odds. One hypothesis is that this particular betting market must be factoring in all of these other features into their own model to create their probability predictions and ultimately odds in the first place.
@@ -89,6 +88,8 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 - Why? As time goes on, the distribution of data can change. What this means is that if your model is predicting well today, it's very possible (and likely) that the distribution of features it uses to predict could change over time making the predictions of your model less accurate over time. An example could be that a certain team that used to always loose gains star players and starts get a winning streak. Or perhaps the market odds you're model uses as a feature begin to change as the company providing these odds improves their own internal model's accuracy.
 - Every time this betting algorithm is run to predict on more bets, new data is added to each respective MongoDB database where a model can be retrained and then used freshly trained on new bets.
 ![Product Architecture Workflow](images/product_architecture.png)
+- Here's a screenshot of the product:
+![Screen Shot of Product](images/product_p1.png)
 
 
 ## Conclusion:
