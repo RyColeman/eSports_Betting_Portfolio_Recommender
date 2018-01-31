@@ -77,7 +77,7 @@ This strategy says, only place a bet on a team where our model says the team wil
 This strategy says, if the difference between our model's probability and the market's probability of a team winning is greater than a certain fixed amount, then we will place the bet. The idea here was that if the model's difference in probability from the market's probability of a team winning is very small, then the team isn't very undervalued and we shouldn't be placing a bet. (Strategy # 4 fixes this risk problem).
 
 ### 5. Beating the odds #4:
-This strategy takes allocated a betting budget accross multiple matches and the amount of money on each bet is proportional to the amount at which a team is undervalued (the extent at which our model's probabilities of a team winning is greater than the betting market's probability of that team winning).
+This strategy allocates a betting budget accross multiple matches and the amount of money on each bet is proportional to the amount at which a team is undervalued (the extent at which our model's probabilities of a team winning is greater than the betting market's probability of that team winning).
 - This was the most profitable strategy and the one used in this betting recommender algorithm.
 
 ## The User Experience (The data Product):
@@ -85,15 +85,15 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 ### URL for web app ***
 
 ## Simulating a production environment:
-- Why? As time goes on, the distribution of data can change. What this means is that if your model is predicting well today, it's very possible (and likely) that the distribution of features it uses to predict could change over time making the predictions of your model less accurate over time. An example could be that a certain team that used to always loose gains star players and starts get a winning streak. Or perhaps the market odds you're model uses as a feature begin to change as the company providing these odds improves their own internal model's accuracy.
-- Every time this betting algorithm is run to predict on more bets, new data is added to each respective MongoDB database where a model can be retrained and then used freshly trained on new bets.
+- Why? As time goes on, the distribution of data can change. What this means is that if your model is predicting well today, it's very possible (and likely) that the distribution of features it uses to predict could change over time, making the predictions of your model less accurate over time. An example could be that a certain team that used to always loose gains star players and starts get a winning streak. Or perhaps the market odds your model uses as a feature begin to change as the company providing these odds improves their own internal model's accuracy.
+- Every time this betting algorithm is run to predict on more bets, new data is added to each respective MongoDB database where a model can be retrained and then used to predict on new bets.
 ![Product Architecture Workflow](images/product_architecture.png)
 - Here's a screenshot of the product:
 ![Screen Shot of Product](images/product_p1.png)
 
 
 ## Conclusion:
-- Time is very important. Team's win steaks rise and fall over time and this information was not captured in this model. To demonstrate, below is an example of a team with a high win rate volitility (win rate = #wins / # games played within a 90day look back window):
+- Time is very important. Teams' win steaks rise and fall over time and this information was not captured in this model. To demonstrate, below is an example of a team with a high win rate volitility (win rate = #wins / # games played within a 90day look back window):
 ![Team Bravado's high win rate volitility](images/team_wins_over_time.png)
 
 - Collect more non-traditional features. Features (information) that the betting market's are most likely not taking into account when making their own prediction models.
@@ -112,3 +112,4 @@ This strategy takes allocated a betting budget accross multiple matches and the 
 - Seaborn & Matplotlib: Python's popular graphing libraries.
 - catboost: Yandex's opensource library for their state of the art boosted forest models.
 - SkLearn : Python's popular Machine learning model and toolkit library.
+- Flask : Python's web developer library
