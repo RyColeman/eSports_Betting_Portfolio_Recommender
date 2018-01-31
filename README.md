@@ -50,7 +50,7 @@ Solution: I used Selenium. Selenium is an automated web browser where you can sc
 A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased.
 
 ## The Betting Market's Baseline Accuracy:
--  70% Accuracy is the baseline. This is calculated by saying you're going to be making predicting whether a team in a match wins or looses based solely off of the market's probability of the team winning. In other words, predict which team will win based off of which team has the higher odds of winning (lower decimal odds). Then compare the predictions to the known value of the historical outcomes, target data.
+-  70% Accuracy is the baseline. This is calculated by translating the market's odds into probabilities. Which ever team has the higher probability chance of winning is the team that the market is predicting to win the given match. We then look at all of the market's predictions and compare these predicts to the real historical match outcomes. The percent of matches the market predicted correctly is the baseline accuracy.
 - If our model has an accuracy that is higher than this baseline, then it is profitable. This is the ultimate goal for this problem.
 
 ### Results:
