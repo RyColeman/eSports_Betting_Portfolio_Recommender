@@ -81,7 +81,6 @@ This strategy allocates a betting budget accross multiple matches and the amount
 
 ## The User Experience (The data Product):
 - This algorithm scraps matches for a given day, then provides a day's betting portfolio of what teams to bet on and how much money to put on each team based on a user's entered budget.
-### URL for web app ***
 
 ## Simulating a production environment:
 - Why? As time goes on, the distribution of data can change. What this means is that if your model is predicting well today, it's very possible (and likely) that the distribution of features it uses to predict could change over time, making the predictions of your model less accurate over time. An example could be that a certain team that used to always loose gains star players and starts get a winning streak. Or perhaps the market odds your model uses as a feature begin to change as the company providing these odds improves their own internal model's accuracy.
