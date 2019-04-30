@@ -26,7 +26,6 @@ In this case the Market says FaZe has a 74.6% of winning and Mousesports has a 3
 - Market odds of a match durring this particular date.
 Problem: All of the scaped web sources had data populated from a java script. This makes it more challenging to pull information from a website.
 Solution: I used Selenium. Selenium is an automated web browser where you can scrape whatever text shows up on a webpage since it is rendered within this automated broswer rather than just existing within a pages HTML code.
-### Link to web scraping gist
 
 ## Feature Engineering: Calculating new predictive variables
 - Team and Opponent Schedule Strength ratios (defined as team_ss and opp_ss in dataframe). Schedule strength ratio says for a given team in a match, what was the total ammount of wins all of their past opponents had / the total amount of games their past opponents played. This ratio was calculated in a past 60 day window.
@@ -47,7 +46,7 @@ Solution: I used Selenium. Selenium is an automated web browser where you can sc
 ### Additional Models
 - SkLearn's Multilayer Perceptron Neural Net
 ### Boosted forest 101. 
-A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequutive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased.
+A Boosted Forest is an ensemble model of decision trees, meaning it's predictions are an aggregate decision of many decision trees. What makes a boosted forest particularly interesting is that each tree makes a prediction off of the residual errors of the tree before it. Put another way, this means, that each consequtive tree makes a prediction off of the known errors of the previous tree. What this means for an overall model is that with each additional tree in the boosted forest ensemble, it will be easier and easier for the next tree to predict correctly because the error of each previous trees predictions are gradually decreased.
 
 ## The Betting Market's Baseline Accuracy:
 -  70% Accuracy is the baseline. This is calculated by translating the market's odds into probabilities. Which ever team has the higher probability chance of winning is the team that the market is predicting to win the given match. We then look at all of the market's predictions and compare these predicts to the real historical match outcomes. The percent of matches the market predicted correctly is the baseline accuracy.
